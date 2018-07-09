@@ -8,6 +8,7 @@ import org.springframework.security.config.annotation.web.reactive.EnableWebFlux
 import org.springframework.security.config.web.server.SecurityWebFiltersOrder;
 import org.springframework.security.config.web.server.ServerHttpSecurity;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.ReactiveSecurityContextHolder;
 import org.springframework.security.core.userdetails.MapReactiveUserDetailsService;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,6 +16,9 @@ import org.springframework.security.web.authentication.preauth.PreAuthenticatedA
 import org.springframework.security.web.server.SecurityWebFilterChain;
 import org.springframework.security.web.server.authentication.AuthenticationWebFilter;
 import reactor.core.publisher.Mono;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @EnableWebFluxSecurity
 @Configuration
@@ -71,6 +75,12 @@ public class HelloWebfluxSecurityConfig {
 				if (authentication instanceof PreAuthenticatedAuthenticationToken) {
 					// todo
 					//PreAuthenticatedAuthenticationToken token = new  PreAuthenticatedAuthenticationToken();
+					Map<String, Object> objectMap = new HashMap<>();
+					objectMap.put("test", "test");
+					objectMap.put("test2", "test2");
+					objectMap.put("test3", "test3");
+					((PreAuthenticatedAuthenticationToken) authentication).setDetails(objectMap);
+
 					authentication.setAuthenticated(true);
 				}
 				return Mono.just(authentication);

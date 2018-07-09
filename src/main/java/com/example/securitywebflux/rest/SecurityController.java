@@ -1,7 +1,6 @@
 package com.example.securitywebflux.rest;
 
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -9,6 +8,8 @@ import reactor.core.publisher.Mono;
 
 @RestController
 public class SecurityController {
+
+	//  ReactiveSecurityContextHolder.getContext().block().getAuthentication().getDetails();
 
 	/**
 	 * URL 权限验证部分
